@@ -104,7 +104,8 @@ class PhanCongGiangDayController extends Controller
      */
     public function store(Request $request)
     {
-        $check1 = PhanCongGiangDay::where(['phong_may_id' => $request->phong_may_id])->first();
+        $check1 = PhanCongGiangDay::where(['phong_may_id' => $request->phong_may_id, 'ngay_thang' => $request->ngay_thang,
+                                    'ca_su_dung' => $request->ca_su_dung])->first();
 
         if ($check1) {
             return redirect()->back()->with('error', 'Phòng học đã được xếp lịch mời bạn chọn phòng khác');
