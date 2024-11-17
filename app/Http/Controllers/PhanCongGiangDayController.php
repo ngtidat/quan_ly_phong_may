@@ -91,7 +91,8 @@ class PhanCongGiangDayController extends Controller
         ->where('ca_su_dung', $caSuDung)
         ->pluck('phong_may_id')->toArray();
 
-        $phongTrong = PhongMay::with('khuvuc')->whereNotIn('id', $phongDaMuon)->get();
+        $phongTrong = PhongMay::with('khuvuc')->whereNotIn('id', $phongDaMuon)
+                                    ->where('trang_thai', '!=', 1)->get();
 
         return view('phan_cong_giang_day.select', compact('phongTrong' , 'caSuDung', 'ngayThang'));
     }
@@ -118,6 +119,12 @@ class PhanCongGiangDayController extends Controller
 
         if ($check2) {
             return redirect()->back()->with('error', 'Giáo viên đã được xếp lịch, mời bạn chọn giáo viên khác');
+        }
+
+        $check3 = PhanCongGiangDay::where(['phong_may_id' => $request->phong_may_id])
+                                        ->where('ngay_thang', '<=', now())->first();
+        if ($check3) {
+            return redirect()->back()->with('error', 'Thời gian đặt phòng đã qua');
         }
         //
         \DB::beginTransaction();

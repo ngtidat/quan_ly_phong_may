@@ -154,7 +154,7 @@
                                 
                                 <div class="form-group">
                                     <label>Số tiết</label>
-                                    <input type="number" class="form-control" placeholder="Số tiết" name="so_tiet" value="{{ old('so_tiet', isset($phanCong) ? $phanCong->so_tiet : '') }}" max="5">
+                                    <input type="number" class="form-control" placeholder="Số tiết" name="so_tiet" value="{{ old('so_tiet', isset($phanCong) ? $phanCong->so_tiet : '') }}" max="3">
                                     @if ($errors->first('so_tiet'))
                                     <span class="text-danger">{{ $errors->first('so_tiet') }}</span>
                                     @endif
